@@ -28,6 +28,14 @@ module RgFactoryGem
           return nil
         end
 
+        define_method :[]= do |name, param|
+          if name.class == Fixnum
+            instance_variable_set(instance_variables[name], param) 
+          else
+            instance_variable_set("@#{name}", param)
+          end
+        end
+
         define_method :== do |other|
           return false unless self.class == other.class
           instance_variables.each_with_index do |ins_var, i|
@@ -50,9 +58,13 @@ module RgFactoryGem
           return s
         end
 
-        define_method :inspect do
-          self.to_s
+        alias_method :inspect, :to_s
+
+        define_method :length do
+          self.to_h.length
         end
+
+        alias_method :size, :length
 
         self.class_eval &block if block_given?
       end

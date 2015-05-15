@@ -54,11 +54,12 @@ describe RgFactoryGem do
       A = RgFactoryGem::Factory.new(:a, :b, :c)
       @a = A.new("x", "y", "z")
       @a1 = A.new("x", "y", "z")
-      @a2 = A.new("x", "y1", "z")
+      @a2 = A.new("x1", "y1", "z1")
       Aa = RgFactoryGem::Factory.new(:a, :b)
       @a3 = Aa.new("x", "y")
       @h = { :a => "x", :b => "y", :c => "z" }
       @s = "A , a= \"x\", b= \"y\", c= \"z\""
+      @l = 3
     end
 
     subject { @a }
@@ -79,9 +80,26 @@ describe RgFactoryGem do
       expect(subject.to_h).to eq @h
     end
 
-    it "should return correct string with to_s and inspect method" do
+    it "should return correct string with to_s and inspect methods" do
       expect(subject.to_s).to eq @s
       expect(subject.inspect).to eq @s
     end    
+
+    it "should return correct length with length and size methods" do
+      expect(subject.length).to eq @l
+      expect(subject.size).to eq @l
+    end
+
+    context "assignment test" do
+      before do
+        subject[0] = "x1"
+        subject[:b] = "y1"
+        subject["c"] = "z1"
+      end
+
+      it "should assign attributes correctly" do
+        expect(subject).to eq @a2
+      end
+    end
   end
 end
