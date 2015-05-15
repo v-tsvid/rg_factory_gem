@@ -3,7 +3,7 @@ require "rg_factory_gem"
 
 module RgFactoryGem
   def self.name
-    "RG Factory Gem"
+  	"RG Factory Gem"
   end
 
   class Factory
