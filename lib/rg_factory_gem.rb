@@ -29,9 +29,11 @@ module RgFactoryGem
         end
 
         define_method :== do |other|
+          return false unless self.class == other.class
           instance_variables.each_with_index do |ins_var, i|
-            return false if ins_var == other
+            return false unless instance_variable_get(ins_var) == other[i]
           end
+          return true
         end
 
         self.class_eval &block if block_given?
