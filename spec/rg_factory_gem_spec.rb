@@ -57,6 +57,8 @@ describe RgFactoryGem do
       @a2 = A.new("x", "y1", "z")
       Aa = RgFactoryGem::Factory.new(:a, :b)
       @a3 = Aa.new("x", "y")
+      @h = { :a => "x", :b => "y", :c => "z" }
+      @s = "A , a= \"x\", b= \"y\", c= \"z\""
     end
 
     subject { @a }
@@ -65,12 +67,21 @@ describe RgFactoryGem do
       expect(subject.== @a1).to eq true
     end
 
-    it "sould return false for objects of different class" do
+    it "should return false for objects of different class" do
       expect(subject == @a2).to eq false
     end
 
-    it "sould return false for different objects of same class" do
+    it "should return false for different objects of same class" do
       expect(subject == @a3).to eq false
     end
+
+    it "should return correct hash with to_h method" do
+      expect(subject.to_h).to eq @h
+    end
+
+    it "should return correct string with to_s and inspect method" do
+      expect(subject.to_s).to eq @s
+      expect(subject.inspect).to eq @s
+    end    
   end
 end

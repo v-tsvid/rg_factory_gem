@@ -36,6 +36,24 @@ module RgFactoryGem
           return true
         end
 
+        define_method :to_h do
+          h = Hash.new
+          self.instance_variables.each do |ins_var|
+            h[ins_var.to_s.delete("@").to_sym] = instance_variable_get(ins_var.to_s)
+          end
+          return h
+        end
+
+        define_method :to_s do
+          s = "#{self.class} "
+          self.to_h.each_pair { |key, value| s += ", #{key.to_s}= \"#{value.to_s}\"" }
+          return s
+        end
+
+        define_method :inspect do
+          self.to_s
+        end
+
         self.class_eval &block if block_given?
       end
     end
