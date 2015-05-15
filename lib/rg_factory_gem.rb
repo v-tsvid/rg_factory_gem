@@ -28,7 +28,7 @@ module RgFactoryGem
           return nil
         end
 
-        define_method == do |other|
+        define_method :== do |other|
           instance_variables.each_with_index do |ins_var, i|
             return false if ins_var == other
           end
